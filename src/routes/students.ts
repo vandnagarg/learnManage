@@ -1,0 +1,37 @@
+
+import * as Courses from './../queries/courses'
+import * as Batch from './../queries/batches'
+import * as Lecture from './../queries/lectures'
+import * as Student from './../queries/students'
+import * as Teacher from './../queries/teacher'
+import {Sequelize} from 'sequelize'
+import express,{Router} from 'express'
+import path from 'path'
+
+const courses = Courses;
+const batch= Batch;
+const lecture = Lecture;
+const teacher = Teacher;
+const student = Student;
+
+const route:Router = Router()
+route.get('/',(req,res)=>{
+    student.fetchAllStudents().then((students)=>{
+        res.json(students)
+    })
+})
+route.post('/',(req,res)=>{
+    student.insert(req.body.name,req.body.batches.split(',')).then((students)=>console.log(student));
+})
+route.get('/:id/batches',(req,res)=>{
+    student.fetchAll(req.params.id).then((studs)=>{
+        res.locals.students = studs;
+         res.send(studs)
+        //next();
+    });
+})
+
+route.get('/:id',(req,res)=>{
+   student.fetchStudent(req.params.id).then((stud)=>res.send(stud))
+})
+export={route}
