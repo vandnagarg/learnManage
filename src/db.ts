@@ -4,7 +4,7 @@ import {Sequelize} from 'sequelize';
 
 
 const db = new Sequelize('learnManage','learnManage','learnManage',{
-    dialect:'mysql',
+    dialect:'sqlite',
     host:'localhost',
     storage:'./learnManageDb.db'
 })
@@ -22,10 +22,6 @@ const Batch = db.define('batch',{
         type:Sequelize.STRING(40),
         allowNull:false,
         unique:true
-    },
-    startDate:{
-        type:Sequelize.DATE,
-        allowNull:false
     }
 })
 
@@ -94,22 +90,17 @@ async function learnManage() {
         await Batch.bulkCreate([
             {
                 name:'Summer 2018',
-                courseId:1,
-                startDate:'2018-06-01',
+                courseId:1
             },
             {
                 name:'Spring 2018',
-                courseId:1,
-                startDate:'2018-03-01',
-                
+                courseId:1
                 
             },
             {
                 name:'Fall 2018',
                 
-                courseId:1,
-                startDate:'2018-09-01',
-                
+                courseId:1
             },
             // {
             //     name:'Spring 2017',

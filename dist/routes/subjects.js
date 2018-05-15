@@ -31,11 +31,6 @@ route.get('/:id/teachers', function (req, res) {
         res.send(teachers);
     });
 });
-route.post('/', function (req, res) {
-    subject.insert(req.body.id, req.body.name).then(function (sub) {
-        res.send(sub);
-    });
-});
 route.put('/:id', function (req, res) {
     subject.updateSubject(req.params.id, req.body.name).then();
 });

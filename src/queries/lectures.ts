@@ -1,22 +1,8 @@
 
-import {Leture as Lecture, Leture} from './../db'
+import {Leture as Lecture} from './../db'
 import {Sequelize} from 'sequelize'
 
-async function insert(bid,sid,tid,name){
-    try{
-        let lec  = await Lecture.create({
-            batchId:bid,
-            subjectId:sid,
-            teacherId:tid,
-            name:name
-        })
-        await lec.save();
-        return lec;
-    }
-    catch(er){
-        console.log(er)
-    }
-}
+
 async function fetchAll(id,id1) {
     try{
         console.log(id1)
@@ -72,5 +58,5 @@ async function fetchAllBatches(id){
     }
 }
 export{
-    fetchAll,fetchAllBatches,insert
+    fetchAll,fetchAllBatches
 }

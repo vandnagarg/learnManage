@@ -29,11 +29,6 @@ route.get('/:id/teachers',(req,res)=>{
         res.send(teachers)
     })
 })
-route.post('/',(req,res)=>{
-    subject.insert(req.body.id,req.body.name).then((sub)=>{
-        res.send(sub)
-    })
-})
 route.put('/:id',(req,res)=>{
     subject.updateSubject(req.params.id,req.body.name).then();
 })

@@ -803,7 +803,7 @@ var LecturesComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n        <label>Student Name</label>\r\n        <!-- {{student.name}} -->\r\n        <span *ngFor=\"let batch of student.batches\">\r\n            {{batch.name}}\r\n        </span>\r\n\r\n</div>"
+module.exports = "<div>\r\n        <legend>New Enrollment</legend>\r\n        <div class=\"form-group\">\r\n                <label for=\"exampleSelect1\"> Select Batch</label>\r\n                <select class=\"form-control\" [(ngModel)]=\"selectedId\">\r\n                  <option *ngFor=\"let subject of batches\"  [ngValue]=\"subject.id\">{{subject.name}} </option>\r\n                  \r\n                </select>\r\n              </div>\r\n        <div>\r\n            <button type=\"submit\" (click)=\"enroll()\">Enroll </button>\r\n        </div>\r\n</div>\r\n<hr>\r\n\r\n<div>\r\n    <div>\r\n      <h3>Student Name</h3>\r\n      {{student.name}}\r\n\r\n    </div>\r\n    <div>\r\n            <h3>Batches Enrolled : </h3>\r\n            <div *ngFor=\"let batch of student.batches\">\r\n                {{batch.name}}\r\n            </div>\r\n    </div>\r\n       \r\n       \r\n\r\n</div>"
 
 /***/ }),
 
@@ -820,6 +820,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _students_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./students.service */ "./src/app/students/students.service.ts");
+/* harmony import */ var _batch_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../batch.service */ "./src/app/batch.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -832,13 +833,27 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var StudentDetailsComponent = /** @class */ (function () {
-    function StudentDetailsComponent(apiStud, route, router) {
+    function StudentDetailsComponent(apiStud, apiBatch, route, router) {
         this.apiStud = apiStud;
+        this.apiBatch = apiBatch;
         this.route = route;
         this.router = router;
         this.title = 'app';
+        this.student = '';
     }
+    StudentDetailsComponent.prototype.enroll = function () {
+        var _this = this;
+        this.apiStud.enroll(this.id, this.selectedId)
+            .subscribe(function (event) {
+            _this.apiStud.getStudent(_this.id)
+                .subscribe(function (event) {
+                _this.student = event;
+                console.log(_this.student);
+            });
+        });
+    };
     StudentDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.id = +this.route.snapshot.paramMap.get('id');
@@ -847,16 +862,21 @@ var StudentDetailsComponent = /** @class */ (function () {
             _this.student = event;
             console.log(_this.student);
         });
+        this.apiBatch.getBatches()
+            .subscribe(function (event) {
+            _this.batches = event;
+        });
     };
     StudentDetailsComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-studentdetails',
             template: __webpack_require__(/*! ./student_details.component.html */ "./src/app/students/student_details.component.html"),
             providers: [
-                _students_service__WEBPACK_IMPORTED_MODULE_2__["StudentsService"]
+                _students_service__WEBPACK_IMPORTED_MODULE_2__["StudentsService"],
+                _batch_service__WEBPACK_IMPORTED_MODULE_3__["BatchService"]
             ]
         }),
-        __metadata("design:paramtypes", [_students_service__WEBPACK_IMPORTED_MODULE_2__["StudentsService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+        __metadata("design:paramtypes", [_students_service__WEBPACK_IMPORTED_MODULE_2__["StudentsService"], _batch_service__WEBPACK_IMPORTED_MODULE_3__["BatchService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
     ], StudentDetailsComponent);
     return StudentDetailsComponent;
 }());
@@ -1000,6 +1020,9 @@ var StudentsService = /** @class */ (function () {
     };
     StudentsService.prototype.getStudentByBatch = function (id) {
         return this.http.get('http://localhost:8000/courses/' + (id) + '/batches/' + (id) + '/students');
+    };
+    StudentsService.prototype.enroll = function (id, bid) {
+        return this.http.post('http://localhost:8000/students/' + (id), bid);
     };
     StudentsService.prototype.getStudent = function (id) {
         return this.http.get('http://localhost:8000/students/' + (id));

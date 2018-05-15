@@ -111,12 +111,10 @@ async function findTeachers(teachers){
 }
 async function insertBySubject(id,name){
     try{
-        let teacer = await Teacher.create({
+        await Teacher.create({
             name:name,
             subjectId:id
         })
-        await teacer.save();
-        return teacer;
 
     }
     catch(err){

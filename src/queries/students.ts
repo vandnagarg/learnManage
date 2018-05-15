@@ -1,5 +1,5 @@
 
-import {Student, Batch} from './../db'
+import {Student} from './../db'
 import {Sequelize} from 'sequelize'
 
 
@@ -16,14 +16,14 @@ async function fetchAllStudents(){
 async function fetchAll(id) {
 
     try{
-        let students = await Batch.findOne({
+        let students = await Student.findOne({
             where:{
                 id:{
                     [Sequelize.Op.eq]:id
                 }
             }
         })
-        let studs =await students.getStudents();
+        let studs =await students.getBatches();
         return studs;
 
     }
@@ -38,7 +38,7 @@ async function insert(name,arr){
             name:name
         })
         stud = await stud.setBatches(arr)
-        // await stud.save();
+        stud = await stud.save();
         // console.log(stud)
         return stud;
     }
@@ -53,10 +53,7 @@ async function fetchStudent(id){
                 id:{
                     [Sequelize.Op.eq]:id
                 }
-            },
-            include:[{
-                model:Batch
-            }]
+            }
         });
         return students;
     }

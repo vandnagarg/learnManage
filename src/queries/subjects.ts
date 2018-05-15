@@ -2,19 +2,7 @@ import {Subject} from './../db'
 import {Teacher} from './../db'
 import {Sequelize} from 'sequelize'
 
-async function insert(id,name){
-    try{
-        let subject = await Subject.create({
-            name:name,
-            courseId:id,
-        })
-        await subject.save();
-        return subject;
-    }
-    catch(err){
-        console.log(err)
-    }
-}
+
 async function fetchAll() {
     try{
         let subjects= await Subject.findAll();
@@ -80,5 +68,5 @@ async function deleteSubject(id){
     }
 }
 export{
-    fetchAll,fetchSubjectById,updateSubject,deleteSubject,insert
+    fetchAll,fetchSubjectById,updateSubject,deleteSubject
 }

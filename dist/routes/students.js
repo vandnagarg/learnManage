@@ -24,8 +24,7 @@ route.get('/', function (req, res) {
     });
 });
 route.post('/', function (req, res) {
-    var arr = req.body.batches;
-    student.insert(req.body.name, arr).then(function (students) { return res.send(students); });
+    student.insert(req.body.name, req.body.batches.split(',')).then(function (students) { return console.log(student); });
 });
 route.get('/:id/batches', function (req, res) {
     student.fetchAll(req.params.id).then(function (studs) {

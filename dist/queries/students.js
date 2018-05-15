@@ -65,7 +65,7 @@ function fetchAll(id) {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, db_1.Batch.findOne({
+                    return [4 /*yield*/, db_1.Student.findOne({
                             where: {
                                 id: (_a = {},
                                     _a[sequelize_1.Sequelize.Op.eq] = id,
@@ -74,7 +74,7 @@ function fetchAll(id) {
                         })];
                 case 1:
                     students = _b.sent();
-                    return [4 /*yield*/, students.getStudents()];
+                    return [4 /*yield*/, students.getBatches()];
                 case 2:
                     studs = _b.sent();
                     return [2 /*return*/, studs];
@@ -94,26 +94,25 @@ function insert(name, arr) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 3, , 4]);
+                    _a.trys.push([0, 4, , 5]);
                     return [4 /*yield*/, db_1.Student.create({
                             name: name
                         })];
                 case 1:
                     stud = _a.sent();
-                    return [4 /*yield*/, stud.setBatches(arr)
-                        // await stud.save();
-                        // console.log(stud)
-                    ];
+                    return [4 /*yield*/, stud.setBatches(arr)];
                 case 2:
                     stud = _a.sent();
-                    // await stud.save();
+                    return [4 /*yield*/, stud.save()];
+                case 3:
+                    stud = _a.sent();
                     // console.log(stud)
                     return [2 /*return*/, stud];
-                case 3:
+                case 4:
                     err_3 = _a.sent();
                     console.log(err_3);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     });
@@ -131,10 +130,7 @@ function fetchStudent(id) {
                                 id: (_a = {},
                                     _a[sequelize_1.Sequelize.Op.eq] = id,
                                     _a)
-                            },
-                            include: [{
-                                    model: db_1.Batch
-                                }]
+                            }
                         })];
                 case 1:
                     students = _b.sent();

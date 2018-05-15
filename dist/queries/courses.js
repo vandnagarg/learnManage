@@ -75,25 +75,22 @@ function fetchAll(id) {
 exports.fetchAll = fetchAll;
 function insert(name) {
     return __awaiter(this, void 0, void 0, function () {
-        var course, err_2;
+        var err_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 3, , 4]);
+                    _a.trys.push([0, 2, , 3]);
                     return [4 /*yield*/, db_1.Course.create({
                             name: name
                         })];
                 case 1:
-                    course = _a.sent();
-                    return [4 /*yield*/, course.save()];
-                case 2:
                     _a.sent();
-                    return [2 /*return*/, course];
-                case 3:
+                    return [3 /*break*/, 3];
+                case 2:
                     err_2 = _a.sent();
                     console.log(err_2);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     });

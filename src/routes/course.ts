@@ -25,11 +25,9 @@ route.get('/',(req,res)=>{
     
 })
 route.post('/',(req,res)=>{
-    console.log(req.body.name + "yess")
-    courses.insert(req.body.name).then((course)=>{
-        console.log(course)
-        res.send(course)
-    })
+    console.log(req.body.name)
+    courses.insert(req.body.name).then();
+    
 })
 
 route.get('/:id',(req,res)=>{
@@ -48,8 +46,8 @@ route.get('/:id/batches',(req,res)=>{
         res.send(batches)
     })
 })
-route.post('/:id/batches',(req,res)=>{
-    batch.insert(req.params.id,req.body.name,req.body.date).then(batch=>res.send(batch));
+route.post('./:id/batches',(req,res)=>{
+    batch.insert(req.params.id,req.params.name).then();
 })
 route.get('/:id/batches/:id1',(req,res)=>{
     batch.fetchAll(req.params.id,req.params.id1).then((batches)=>{
@@ -67,22 +65,13 @@ route.get('/:id/batches/:id1/lectures/:id2',(req,res)=>{
         res.send(lectures)
     })
 })
-route.post('/:id/batches/:id1/lectures',(req,res)=>{
-    lecture.insert(req.params.id1,req.body.sid,req.body.tid,req.body.name)
-    .then((lec)=> res.send(lec))
-})
-
 route.get('/:id/batches/:id1/students',(req,res)=>{
     student.fetchAll(req.params.id1).then((studnets)=>{
-        console.log('id = ' + req.params.id1 + " " + studnets)
-
         res.send(studnets)
     })
 })
 route.post('/:id/batches/:id1/students',(req,res)=>{
-    student.insert(req.body.name,req.params.id1).then((course)=>{
-        res.send(course)
-    })
+    student.insert(req.body.name,req.params.id1).then()
 })
 route.get('/:id/batches/:id1/teachers',(req,res)=>{
     // async function teachersFind(){
