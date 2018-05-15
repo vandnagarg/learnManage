@@ -4,12 +4,15 @@
 import {Batch} from './../db'
 import {Sequelize} from 'sequelize'
 
-async function insert(id,name){
+async function insert(id,name,date){
     try{
-        await Batch.create({
-            id:id,
-            name:name
+        let batch = await Batch.create({
+            courseId:id,
+            name:name,
+            startDate:date
         })
+        await batch.save();
+        return batch
     }
     catch(err){
         console.log(err)

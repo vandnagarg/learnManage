@@ -16,7 +16,14 @@ const student = Student;
 
 const route:Router = Router()
 route.get('/',(req,res)=>{
-    teacher.fetchAllTeachers().then();
+    teacher.fetchAllTeachers().then((teacher)=>{
+        res.send(teacher);
+    })
+})
+route.post('/',(req,res)=>{
+    teacher.insertBySubject(req.body.id,req.body.name).then((teacher)=>{
+        res.send(teacher)
+    })
 })
 route.get('/:id',(req,res)=>{
     teacher.fetchById(req.params.id).then((teacher)=>{

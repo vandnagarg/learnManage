@@ -13,15 +13,24 @@ var course_1 = __importDefault(require("./routes/course"));
 var students_1 = __importDefault(require("./routes/students"));
 var subjects_1 = __importDefault(require("./routes/subjects"));
 var teacher_1 = __importDefault(require("./routes/teacher"));
+var body_parser_1 = __importDefault(require("body-parser"));
 // import express from 'express'
 // import path from 'path'
 // import {learnManage as authenticate} from './db';
 var app = express_1.default();
-app.use(express_1.default.json());
-app.use(express_1.default.urlencoded({
-    extended: true
-}));
-app.use('/', express_1.default.static(path_1.default.join(__dirname, '..', 'public')));
+app.use(body_parser_1.default.json());
+app.use(body_parser_1.default.urlencoded({ extended: false }));
+// app.use(express.json())
+// app.use(express.urlencoded({
+//     extended: true
+// })) 
+app.use('/', express_1.default.static(path_1.default.join(__dirname, '..', 'public/dist/learnManageFront')));
+app.get('/batches', function (req, res) {
+    db_1.Batch.findAll().then(function (batches) {
+        console.log(batches);
+        res.send(batches);
+    });
+});
 db_1.learnManage();
 var routes = {
     courses: course_1.default,

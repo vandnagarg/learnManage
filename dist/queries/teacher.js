@@ -182,23 +182,26 @@ function findTeachers(teachers) {
 exports.findTeachers = findTeachers;
 function insertBySubject(id, name) {
     return __awaiter(this, void 0, void 0, function () {
-        var err_5;
+        var teacer, err_5;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
+                    _a.trys.push([0, 3, , 4]);
                     return [4 /*yield*/, db_2.Teacher.create({
                             name: name,
                             subjectId: id
                         })];
                 case 1:
-                    _a.sent();
-                    return [3 /*break*/, 3];
+                    teacer = _a.sent();
+                    return [4 /*yield*/, teacer.save()];
                 case 2:
+                    _a.sent();
+                    return [2 /*return*/, teacer];
+                case 3:
                     err_5 = _a.sent();
                     console.log(err_5);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });

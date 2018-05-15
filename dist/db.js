@@ -39,7 +39,7 @@ var sequelize_1 = require("sequelize");
 // import {} from '';
 // var Sequelize = require('sequelize')
 var db = new sequelize_1.Sequelize('learnManage', 'learnManage', 'learnManage', {
-    dialect: 'sqlite',
+    dialect: 'mysql',
     host: 'localhost',
     storage: './learnManageDb.db'
 });
@@ -56,6 +56,10 @@ var Batch = db.define('batch', {
         type: sequelize_1.Sequelize.STRING(40),
         allowNull: false,
         unique: true
+    },
+    startDate: {
+        type: sequelize_1.Sequelize.DATE,
+        allowNull: false
     }
 });
 exports.Batch = Batch;
@@ -122,15 +126,18 @@ function learnManage() {
                     return [4 /*yield*/, Batch.bulkCreate([
                             {
                                 name: 'Summer 2018',
-                                courseId: 1
+                                courseId: 1,
+                                startDate: '2018-06-01',
                             },
                             {
                                 name: 'Spring 2018',
-                                courseId: 1
+                                courseId: 1,
+                                startDate: '2018-03-01',
                             },
                             {
                                 name: 'Fall 2018',
-                                courseId: 1
+                                courseId: 1,
+                                startDate: '2018-09-01',
                             },
                         ])];
                 case 4:

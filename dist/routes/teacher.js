@@ -19,7 +19,14 @@ var teacher = Teacher;
 var student = Student;
 var route = express_1.Router();
 route.get('/', function (req, res) {
-    teacher.fetchAllTeachers().then();
+    teacher.fetchAllTeachers().then(function (teacher) {
+        res.send(teacher);
+    });
+});
+route.post('/', function (req, res) {
+    teacher.insertBySubject(req.body.id, req.body.name).then(function (teacher) {
+        res.send(teacher);
+    });
 });
 route.get('/:id', function (req, res) {
     teacher.fetchById(req.params.id).then(function (teacher) {

@@ -26,8 +26,11 @@ route.get('/', function (req, res) {
     });
 });
 route.post('/', function (req, res) {
-    console.log(req.body.name);
-    courses.insert(req.body.name).then();
+    console.log(req.body.name + "yess");
+    courses.insert(req.body.name).then(function (course) {
+        console.log(course);
+        res.send(course);
+    });
 });
 route.get('/:id', function (req, res) {
     courses.fetchAll(req.params.id).then(function (courses) {
@@ -45,8 +48,8 @@ route.get('/:id/batches', function (req, res) {
         res.send(batches);
     });
 });
-route.post('./:id/batches', function (req, res) {
-    batch.insert(req.params.id, req.params.name).then();
+route.post('/:id/batches', function (req, res) {
+    batch.insert(req.params.id, req.body.name, req.body.date).then(function (batch) { return res.send(batch); });
 });
 route.get('/:id/batches/:id1', function (req, res) {
     batch.fetchAll(req.params.id, req.params.id1).then(function (batches) {
@@ -63,13 +66,20 @@ route.get('/:id/batches/:id1/lectures/:id2', function (req, res) {
         res.send(lectures);
     });
 });
+route.post('/:id/batches/:id1/lectures', function (req, res) {
+    lecture.insert(req.params.id1, req.body.sid, req.body.tid, req.body.name)
+        .then(function (lec) { return res.send(lec); });
+});
 route.get('/:id/batches/:id1/students', function (req, res) {
     student.fetchAll(req.params.id1).then(function (studnets) {
+        console.log('id = ' + req.params.id1 + " " + studnets);
         res.send(studnets);
     });
 });
 route.post('/:id/batches/:id1/students', function (req, res) {
-    student.insert(req.body.name, req.params.id1).then();
+    student.insert(req.body.name, req.params.id1).then(function (course) {
+        res.send(course);
+    });
 });
 route.get('/:id/batches/:id1/teachers', function (req, res) {
     // async function teachersFind(){

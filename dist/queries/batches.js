@@ -37,25 +37,29 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var db_1 = require("./../db");
 var sequelize_1 = require("sequelize");
-function insert(id, name) {
+function insert(id, name, date) {
     return __awaiter(this, void 0, void 0, function () {
-        var err_1;
+        var batch, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
+                    _a.trys.push([0, 3, , 4]);
                     return [4 /*yield*/, db_1.Batch.create({
-                            id: id,
-                            name: name
+                            courseId: id,
+                            name: name,
+                            startDate: date
                         })];
                 case 1:
-                    _a.sent();
-                    return [3 /*break*/, 3];
+                    batch = _a.sent();
+                    return [4 /*yield*/, batch.save()];
                 case 2:
+                    _a.sent();
+                    return [2 /*return*/, batch];
+                case 3:
                     err_1 = _a.sent();
                     console.log(err_1);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });

@@ -38,9 +38,36 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var db_1 = require("./../db");
 var db_2 = require("./../db");
 var sequelize_1 = require("sequelize");
+function insert(id, name) {
+    return __awaiter(this, void 0, void 0, function () {
+        var subject, err_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, db_1.Subject.create({
+                            name: name,
+                            courseId: id,
+                        })];
+                case 1:
+                    subject = _a.sent();
+                    return [4 /*yield*/, subject.save()];
+                case 2:
+                    _a.sent();
+                    return [2 /*return*/, subject];
+                case 3:
+                    err_1 = _a.sent();
+                    console.log(err_1);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.insert = insert;
 function fetchAll() {
     return __awaiter(this, void 0, void 0, function () {
-        var subjects, err_1;
+        var subjects, err_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -50,8 +77,8 @@ function fetchAll() {
                     subjects = _a.sent();
                     return [2 /*return*/, subjects];
                 case 2:
-                    err_1 = _a.sent();
-                    console.log(err_1);
+                    err_2 = _a.sent();
+                    console.log(err_2);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
@@ -61,7 +88,7 @@ function fetchAll() {
 exports.fetchAll = fetchAll;
 function fetchSubjectById(id) {
     return __awaiter(this, void 0, void 0, function () {
-        var subjet, err_2, _a;
+        var subjet, err_3, _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -77,8 +104,8 @@ function fetchSubjectById(id) {
                     subjet = _b.sent();
                     return [2 /*return*/, subjet];
                 case 2:
-                    err_2 = _b.sent();
-                    console.log(err_2);
+                    err_3 = _b.sent();
+                    console.log(err_3);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
@@ -88,7 +115,7 @@ function fetchSubjectById(id) {
 exports.fetchSubjectById = fetchSubjectById;
 function updateSubject(id, name) {
     return __awaiter(this, void 0, void 0, function () {
-        var suject, err_3, _a;
+        var suject, err_4, _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -108,8 +135,8 @@ function updateSubject(id, name) {
                     _b.sent();
                     return [3 /*break*/, 4];
                 case 3:
-                    err_3 = _b.sent();
-                    console.log(err_3);
+                    err_4 = _b.sent();
+                    console.log(err_4);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
@@ -119,7 +146,7 @@ function updateSubject(id, name) {
 exports.updateSubject = updateSubject;
 function deleteSubject(id) {
     return __awaiter(this, void 0, void 0, function () {
-        var err_4, _a, _b;
+        var err_5, _a, _b;
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
@@ -144,8 +171,8 @@ function deleteSubject(id) {
                     _c.sent();
                     return [3 /*break*/, 4];
                 case 3:
-                    err_4 = _c.sent();
-                    console.log(err_4);
+                    err_5 = _c.sent();
+                    console.log(err_5);
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }

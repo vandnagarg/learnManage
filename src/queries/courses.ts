@@ -30,9 +30,11 @@ async function fetchAll(id){
 }
 async function insert(name){
     try{
-        await Courses.create({
+        let course = await Courses.create({
             name:name   
         })
+        await course.save();
+        return course;
 
     }
     catch(err){

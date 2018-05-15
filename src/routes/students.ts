@@ -21,7 +21,8 @@ route.get('/',(req,res)=>{
     })
 })
 route.post('/',(req,res)=>{
-    student.insert(req.body.name,req.body.batches.split(',')).then((students)=>console.log(student));
+    let arr = req.body.batches;
+    student.insert(req.body.name,arr).then((students)=>res.send(students));
 })
 route.get('/:id/batches',(req,res)=>{
     student.fetchAll(req.params.id).then((studs)=>{
